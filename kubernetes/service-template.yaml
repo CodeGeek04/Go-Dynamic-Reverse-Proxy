@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: SERVICE_NAME-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: SERVICE_NAME
+  template:
+    metadata:
+      labels:
+        app: SERVICE_NAME
+    spec:
+      containers:
+      - name: SERVICE_NAME
+        image: SERVICE_IMAGE
+        imagePullPolicy: IMAGE_PULL_POLICY
+        ports:
+        CONTAINER_PORTS
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: SERVICE_NAME-service
+spec:
+  selector:
+    app: SERVICE_NAME
+  ports:
+    SERVICE_PORTS
